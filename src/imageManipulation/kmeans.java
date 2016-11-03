@@ -85,7 +85,7 @@ public class kmeans {
 		verifySizeAndCenter(c1, finalColors, 1);
 		verifySizeAndCenter(c2, finalColors, 2);
 		
-//		visualRenderer vs = new visualRenderer(c0, c1, c2, finalColors);
+		visualRenderer vs = new visualRenderer(c0, c1, c2, finalColors);
 		
 		return finalColors;
 	}

@@ -44,7 +44,7 @@ public class mainWindow extends JFrame{
 		this.ds = ds;
 		
 		setLayout(null);
-		setTitle("Pixel Sorter v0.3");
+		setTitle("EOTB v0.3");
 		setSize(290, 440);
 		setLocation(1000, 220);
 //		setLocationRelativeTo(null);
