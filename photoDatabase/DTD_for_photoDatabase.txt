@@ -1,0 +1,12 @@
+<!ELEMENT photoDatabase (Photo*)>
+<!ATTLIST Photo id CDATA #IMPLIED>
+
+<!ELEMENT Photo (PDC1, PDC2, PDC3)>
+
+<!ELEMENT PDC1 (red, green, blue)>
+<!ELEMENT PDC2 (red, gree, blue)>
+<!ELEMENT PDC3 (red, green, blue)>
+
+<!ELEMENT red (#PCDATA)>
+<!ELEMENT green (#PCDATA)>
+<!ELEMENT blue (#PCDATA)>
