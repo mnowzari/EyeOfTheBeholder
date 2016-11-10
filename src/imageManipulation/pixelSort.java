@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Random;
 import javax.imageio.ImageIO;
 
@@ -107,6 +108,9 @@ public class pixelSort{
 		this.colorArray = null;
 		isDone = true;
 		System.gc();
+		
+//		System.out.println(sortTime);
+
 	}
 	
 	public boolean checkIfLandscape(){
@@ -297,11 +301,10 @@ public class pixelSort{
 	}
 	
 	public void multithreadedConvert(Color[][] colorArray, BufferedImage img){
-//		System.out.println("MULTITHREADED CONVERT WORKING");
 		Color[][] quadrant1 = new Color[img.getWidth()/2][img.getHeight()/2];
-		Color[][] quadrant2 = new Color[img.getWidth()][img.getHeight()];
-		Color[][] quadrant3 = new Color[img.getWidth()][img.getHeight()];
-		Color[][] quadrant4 = new Color[img.getWidth()][img.getHeight()];
+		Color[][] quadrant2 = new Color[img.getWidth()/2][img.getHeight()/2];
+		Color[][] quadrant3 = new Color[img.getWidth()/2][img.getHeight()/2];
+		Color[][] quadrant4 = new Color[img.getWidth()/2][img.getHeight()/2];
 
 		quad1 q1 = new quad1(quadrant1, img);
 		Thread t1 = new Thread(q1);
@@ -331,28 +334,88 @@ public class pixelSort{
 			}
 		}
 		
-		if (q1.isDone == true && q2.isDone == true && q3.isDone == true && q4.isDone == true){
-			for (int i = 0; i < img.getWidth()/2; i++){								//Q1
-				for (int k = 0; k < img.getHeight()/2; k++){
-					colorArray[i][k] = quadrant1[i][k];
-				}
+		for (int i = 0; i < img.getWidth()/2; i++){
+			for (int k = 0; k < img.getHeight()/2; k++){
+				colorArray[i][k] = quadrant1[i][k];
+				colorArray[i + img.getWidth()/2][k] = quadrant2[i][k];
+				colorArray[i][k + img.getHeight()/2] = quadrant3[i][k];
+				colorArray[i + img.getWidth()/2][k + img.getHeight()/2] = quadrant4[i][k];
 			}
-			
-			for (int i = img.getWidth()/2; i < img.getWidth(); i++){				//Q4
-				for (int k = img.getHeight()/2; k < img.getHeight(); k++){
-					colorArray[i][k] = quadrant4[i][k];
-				}
-			}
-			
-			for (int i = img.getWidth()/2; i < img.getWidth(); i++){				//Q2
-				for (int k = 0; k < img.getHeight()/2; k++){
-					colorArray[i][k] = quadrant2[i][k];
-				}
-			}
-			
-			for (int i = 0; i < img.getWidth()/2; i++){								//Q3
-				for (int k = img.getHeight()/2; k < img.getHeight(); k++){
-					colorArray[i][k] = quadrant3[i][k];
+		}
+	}
+	
+	public void multithreadedConvert_16(Color[][] colorArray, final BufferedImage img){
+		int wSector = img.getWidth()/4;
+		int hSector = img.getHeight()/4;
+		
+		ArrayList<Color[][]> sectors = new ArrayList<Color[][]>();
+		for (int j = 0; j < 16; j++){
+			sectors.add(new Color[wSector][hSector]);
+		}
+		
+		Thread[] threadArr = new Thread[16];
+		for (int i = 0; i < 16; i++){
+			Thread t = new Thread(new sector16(sectors.get(i), img, i + 1));
+			threadArr[i] = t;
+			t.start();
+		}
+		
+		for (int k = 0; k < threadArr.length; k++){
+			try { threadArr[k].join();} 
+			catch (InterruptedException e) {e.printStackTrace();}
+		}
+		
+		for (int j = 0; j < sectors.size(); j++){
+			for (int i = 0; i < wSector; i++){
+				for (int k = 0; k < hSector; k++){
+					if (j == 0){
+						colorArray[i][k] = sectors.get(j)[i][k];
+					}
+					else if (j == 1){
+						colorArray[i + wSector][k] = sectors.get(j)[i][k];
+					}
+					else if (j == 2){
+						colorArray[i + 2*wSector][k] = sectors.get(j)[i][k];
+					}
+					else if (j == 3){
+						colorArray[i + 3*wSector][k] = sectors.get(j)[i][k];
+					}
+					else if (j == 4){
+						colorArray[i][k + hSector] = sectors.get(j)[i][k];
+					}
+					else if (j == 5){
+						colorArray[i + wSector][k + hSector] = sectors.get(j)[i][k];
+					}
+					else if (j == 6){
+						colorArray[i + 2*wSector][k + hSector] = sectors.get(j)[i][k];
+					}
+					else if (j == 7){
+						colorArray[i + 3*wSector][k + hSector] = sectors.get(j)[i][k];
+					}
+					else if (j == 8){
+						colorArray[i][k + 2*hSector] = sectors.get(j)[i][k];
+					}
+					else if (j == 9){
+						colorArray[i + wSector][k + 2*hSector] = sectors.get(j)[i][k];
+					}
+					else if (j == 10){
+						colorArray[i + 2*wSector][k + 2*hSector] = sectors.get(j)[i][k];
+					}
+					else if (j == 11){
+						colorArray[i + 3*wSector][k + 2*hSector] = sectors.get(j)[i][k];
+					}
+					else if (j == 12){
+						colorArray[i][k + 3*hSector] = sectors.get(j)[i][k];
+					}
+					else if (j == 13){
+						colorArray[i + wSector][k + 3*hSector] = sectors.get(j)[i][k];
+					}
+					else if (j == 14){
+						colorArray[i + 2*wSector][k + 3*hSector] = sectors.get(j)[i][k];
+					}
+					else if (j == 15){
+						colorArray[i + 3*wSector][k + 3*hSector] = sectors.get(j)[i][k];
+					}
 				}
 			}
 		}
@@ -817,7 +880,6 @@ public class pixelSort{
 		{
 			e.printStackTrace();
 		}
-//		System.out.println(sortTime);
 	}
 	
 	public void resetBounds(){

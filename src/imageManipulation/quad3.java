@@ -15,10 +15,9 @@ public class quad3 implements Runnable{
 	}
 	
 	public void run() {
-		for (int i = 0; i < img.getWidth()/2; i++){								//Q3
-			for (int k = img.getHeight()/2; k < img.getHeight(); k++){
-				Color pixelValue = new Color(img.getRGB(i, k));
-				colorArray[i][k] = pixelValue;
+		for (int i = 0; i < colorArray.length; i++){								//Q3
+			for (int k = 0; k < colorArray[0].length; k++){
+				colorArray[i][k] = new Color(img.getRGB(i, k + img.getHeight()/2));
 			}
 		}
 		isDone = true;
