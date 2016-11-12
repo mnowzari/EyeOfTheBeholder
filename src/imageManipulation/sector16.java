@@ -50,8 +50,8 @@ public class sector16 implements Runnable{
 				case 16:
 					sector[i][k] = new Color(img.getRGB(i + (3*(img.getWidth()/4)), k + (3*(img.getHeight()/4))));
 				}
-				isDone = true;
 			}
 		}
+		isDone = true;
 	}
 }

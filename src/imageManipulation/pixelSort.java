@@ -284,18 +284,20 @@ public class pixelSort{
 	}
 	
 	private Color[][] convertTo2DArray(Color[][] colorArray, BufferedImage img){
+		boolean multiBypass = false;
+		if ((img.getWidth() % 2) != 0 || (img.getHeight() % 2) != 0){
+			multiBypass = true;
+		}
 		
-		if (multithreaded == false){
-//			System.out.println("SINGLETHREADED CONVERT WORKING");
+		if (multithreaded == true && multiBypass == false){
+			multithreadedConvert(colorArray, img);
+		}
+		else if (multithreaded == false || multiBypass == true){
 			for (int i = 0; i < img.getWidth(); i++){
 				for (int k = 0; k < img.getHeight(); k++){
-					Color pixelValue = new Color(img.getRGB(i, k));
-					colorArray[i][k] = pixelValue;
+					colorArray[i][k] = new Color(img.getRGB(i, k));
 				}
-			}	
-		}
-		else {
-			multithreadedConvert(colorArray, img);
+			}
 		}
 		return colorArray;
 	}
@@ -321,10 +323,9 @@ public class pixelSort{
 		threadArr[2] = t3;
 		threadArr[3] = t4;
 		
-		t1.start();
-		t2.start();
-		t3.start();
-		t4.start();
+		for (int t = 0; t < 4; t++){
+			threadArr[t].start();
+		}
 		
 		for (int k = 0; k < threadArr.length; k++){
 			try {
@@ -344,7 +345,7 @@ public class pixelSort{
 		}
 	}
 	
-	public void multithreadedConvert_16(Color[][] colorArray, final BufferedImage img){
+	public void multithreadedConvert_16(Color[][] colorArray, BufferedImage img){
 		int wSector = img.getWidth()/4;
 		int hSector = img.getHeight()/4;
 		
@@ -368,7 +369,10 @@ public class pixelSort{
 		for (int j = 0; j < sectors.size(); j++){
 			for (int i = 0; i < wSector; i++){
 				for (int k = 0; k < hSector; k++){
-					if (j == 0){
+					if (sectors.get(j)[i][k] == null){
+						System.out.println(i + ", " + k);
+					}
+					else if (j == 0){
 						colorArray[i][k] = sectors.get(j)[i][k];
 					}
 					else if (j == 1){
@@ -421,6 +425,7 @@ public class pixelSort{
 		}
 	}
 	
+	
 	public BufferedImage loadJPG(String filename){
 		this.img = null;
 		File newFile = new File(filename);
@@ -453,11 +458,13 @@ public class pixelSort{
 		return img;
 	}
 	
+	
 	private int randomPixel(int max){
 		Random rand = new Random();
 		int coord = rand.nextInt(max);
 		return coord;
 	}
+	
 	
 	public void sortPixels(Color[][] colorArray, BufferedImage img){
 		int row1 = (this.slope + 1) + xMinBound;
@@ -779,13 +786,16 @@ public class pixelSort{
 		}
 	}
 	
+	
 	private void randomSortHelper(Color[][] colorArray, int slope, int i, int k, int iSub, int kSub){
 		colorArray[i][k] = colorArray[i][k - 1];
 	}
 	
+	
 	private void sortHelper(Color[][] colorArray, int slope, int i, int k){
 		colorArray[i][k] = colorArray[i - slope][k - 1];
 	}
+	
 	
 	public void saveToJPG(Color[][] colorArray, BufferedImage img, String filename){
 		for (int i = 0; i < colorArray.length; i++){			//loop for getting 2D array back into a BufferedImage for saving
@@ -881,6 +891,7 @@ public class pixelSort{
 			e.printStackTrace();
 		}
 	}
+	
 	
 	public void resetBounds(){
 		xMinBound = 0;
