@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<photoDatabase>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><photoDatabase>
 	<Photo id="x_8814056_8814056-R1-055-26.jpg">
 		<PDC1>
 			<red>188</red>
@@ -3026,4 +3025,4 @@
 			<blue>97</blue>
 		</PDC3>
 	</Photo>
-</photoDatabase>
+<Photo id="x_DSC_0375-2.jpg"><PDC1><red>8</red><green>5</green><blue>7</blue></PDC1><PDC2><red>8</red><green>6</green><blue>8</blue></PDC2><PDC3><red>91</red><green>66</green><blue>20</blue></PDC3></Photo><Photo id="x_DSC_0024.jpg"><PDC1><red>87</red><green>86</green><blue>84</blue></PDC1><PDC2><red>199</red><green>204</green><blue>208</blue></PDC2><PDC3><red>203</red><green>203</green><blue>202</blue></PDC3></Photo><Photo id="x_DSC_0014.jpg"><PDC1><red>231</red><green>229</green><blue>229</blue></PDC1><PDC2><red>162</red><green>164</green><blue>163</blue></PDC2><PDC3><red>113</red><green>113</green><blue>109</blue></PDC3></Photo><Photo id="1258180_x_DSC_0015.jpg"><PDC1><red>86</red><green>110</green><blue>133</blue></PDC1><PDC2><red>204</red><green>198</green><blue>185</blue></PDC2><PDC3><red>37</red><green>55</green><blue>68</blue></PDC3></Photo></photoDatabase>

@@ -41,7 +41,7 @@ public class visualRenderer {
 //			Color boxColor = new Color(c.get(i).getRed(), c.get(i).getGreen(), c.get(i).getBlue());
 			g2.setColor(color);
 			Rectangle2D rect = new Rectangle2D.Double();
-			rect.setRect(c.get(i).getBlue(), c.get(i).getGreen(), 1, 1);
+			rect.setRect(c.get(i).getRed(), c.get(i).getBlue(), 1, 1);
 			g2.draw(rect);	
 		}
 	}

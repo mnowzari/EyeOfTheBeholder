@@ -250,7 +250,7 @@ public class pixelSort{
 		}
 	}
 	
-	private int partitionHelper(int[] channelArray, int left, int right){
+	private int partitionHelper(int[] channelArray, int left, int right){ //unimplemented feature
 		int i = left, j = right;
 		int tmp;
 		int pivot = channelArray[(left + right) / 2];
@@ -273,7 +273,7 @@ public class pixelSort{
 		return i;
 	}
 	
-	private void quicksortColor(int[] channelArray, int left, int right){
+	private void quicksortColor(int[] channelArray, int left, int right){ //unimplemented feature
 		int index = partitionHelper(channelArray, left, right);
 		if (left < index - 1){
 			quicksortColor(channelArray, left, index - 1);
@@ -356,7 +356,7 @@ public class pixelSort{
 		
 		Thread[] threadArr = new Thread[6];
 		for (int i = 0; i < 6; i++){
-			Thread t = new Thread(new sector16(sectors.get(i), img, i + 1, wSector, hSector));
+			Thread t = new Thread(new sector6(sectors.get(i), img, i + 1, wSector, hSector));
 			threadArr[i] = t;
 			t.start();
 		}

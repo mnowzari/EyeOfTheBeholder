@@ -2,14 +2,14 @@ package imageManipulation;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
-public class sector16 implements Runnable{
+public class sector6 implements Runnable{
 	Color[][] sector;
 	BufferedImage img;
 	int sectorNumber;
 	boolean isDone = false;
 	int wSector;
 	int hSector;
-	public sector16(Color[][] sector, BufferedImage img, int sectorNumber, int wSector, int hSector){
+	public sector6(Color[][] sector, BufferedImage img, int sectorNumber, int wSector, int hSector){
 		this.sector = sector;
 		this.img = img;
 		this.sectorNumber = sectorNumber;
