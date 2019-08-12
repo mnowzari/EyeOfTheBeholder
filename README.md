@@ -19,9 +19,6 @@ Features
 + Multithreaded analysis
 + Ability to save processing settings into text file
 
-Technical Bits
 ============================
 EOTB is written entirely in Java and utilizes Java standard libraries for everything.
-
-The program by default maintains a locally-stored XML database. Every time you load a photo into the program, it logs the photo name and saves the top three dominant colors of the photo into the database. This is in preperation of a future feature regarding colors. You can disable this feature in the main menu.
 
